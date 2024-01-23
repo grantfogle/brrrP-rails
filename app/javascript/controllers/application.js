@@ -1,15 +1,11 @@
 import { Application } from "@hotwired/stimulus"
-<%- if bundler.importmap? %>
-import consumer from "channels/consumer"
-<%- else %>
 import consumer from "../channels/consumer"
-<%- end %>
 
 const application = Application.start()
 
 // Configure Stimulus development experience
 application.debug = false
 application.consumer = consumer
-window.Stimulus = application
+window.Stimulus   = application
 
 export { application }

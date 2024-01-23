@@ -1,5 +1,15 @@
 import { application } from "./application"
-import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
+import applicationController from "./application_controller"
+import StimulusReflex from "stimulus_reflex"
 
-const controllers = definitionsFromContext(require.context("controllers", true, /_controller\.js$/))
-application.load(controllers)
+import controllers from "./**/*_controller.js"
+
+controllers.forEach((controller) => {
+  application.register(controller.name, controller.module.default)
+})
+
+StimulusReflex.initialize(application, { applicationController, isolate: true })
+
+// consider removing these options in production
+StimulusReflex.debug = true
+// end remove
